@@ -3,7 +3,15 @@ import os
 
 app = Flask(__name__)
 
-# Static file routes (keep these for development)
+# 1. Load the configuration once when the app starts
+app.config['SHEET_API_URL'] = os.environ.get("SHEET_API_URL")
+
+# 2. Create a Context Processor
+@app.context_processor
+def inject_global_variables():
+    return dict(sheet_api_url=app.config['SHEET_API_URL'])
+
+# --- Static file routes ---
 @app.route('/images/<path:filename>')
 def serve_images(filename):
     return send_from_directory('static/images', filename)
@@ -16,16 +24,14 @@ def serve_css(filename):
 def serve_js(filename):
     return send_from_directory('static/js', filename)
 
-# Website routes
+# --- Website routes ---
 @app.route('/')
 def home():
     return render_template('index.html')
 
 @app.route('/take_test')
 def take_test():
-    # Fetch the secret URL from Render environment variables
-    sheet_api_url = os.environ.get("SHEET_API_URL")
-    return render_template('test.html', sheet_api_url=sheet_api_url)
+    return render_template('test.html')
 
 @app.route('/results')
 def results():
