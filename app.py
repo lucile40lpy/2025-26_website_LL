@@ -25,11 +25,11 @@ def home():
 def take_test():
     # Fetch the secret URL from Render environment variables
     sheet_api_url = os.environ.get("SHEET_API_URL")
-    return render_template('stuteapot_test.html', sheet_api_url=sheet_api_url)
+    return render_template('test.html', sheet_api_url=sheet_api_url)
 
 @app.route('/results')
 def results():
-    return render_template('stuteapot_results.html')
+    return render_template('results.html')
 
 if __name__ == '__main__':
     app.run(host="0.0.0.0", debug=True, port=5000)

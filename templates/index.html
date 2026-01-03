@@ -3,15 +3,15 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>StuTeaPot</title>
+    <title>WASPP</title>
     <script src="{{ url_for('static', filename='node_modules/d3/dist/d3.js') }}"></script>
     <script
       type="module"
-      src="{{ url_for('static', filename='js/stuteapot_interact.js') }}"
+      src="{{ url_for('static', filename='js/index_interact.js') }}"
     ></script>
     <link
       rel="stylesheet"
-      href="{{ url_for('static', filename='css/stuteapot_style.css') }}"
+      href="{{ url_for('static', filename='css/style.css') }}"
     />
     <script>
       // Pass Flask URLs to JavaScript
@@ -24,30 +24,21 @@
   </head>
 
   <body>
-    <div class="full-width-section bg-cream" id="landing">
-      <div class="section-content" style="text-align: center">
-        <h1 class="main-title">STUTEAPOT</h1>
-        <p class="subtitle">THIS WEBSITE IS UNDER CONSTRUCTION.</p>
-        <div
-          class="scroll-indicator"
-          onclick="scrollToContent()"
-          style="position: static; margin-top: 40px; cursor: pointer"
-        >
-          <span>↓</span>
-        </div>
-      </div>
-    </div>
+    <header class="full-width-section bg-cream" id="landing">
+      <h1 class="main-title">WASPP</h1>
+      <p class="subtitle">What Are Student's Pedagogical Preferences?</p>
+    </header>
 
     <div class="full-width-section bg-purple" id="main-content">
-      <div class="section-content" id="discover-stuteapot">
-        <h1>DISCOVER STUTEAPOT</h1>
+      <div class="section-content" id="discover-WASPP">
+        <h1>DISCOVER WASPP</h1>
         <p>This section will be completed soon.</p>
       </div>
     </div>
 
     <div class="full-width-section bg-green" id="take-test">
       <div class="section-content">
-        <h1>TAKE THE STUTEAPOT TEST</h1>
+        <h1>TAKE THE WASPP TEST</h1>
         <p>Contribute to a research project.</p>
         <p>
           <strong>Note:</strong> The test is currently in development phase.
@@ -72,8 +63,8 @@
         <h1>ABOUT THE PROJECT</h1>
         <p>
           I'm a student at PSL University and Louis-le-Grand, currently studying
-          in the CPES 3 program focused on Data, Arts and Culture. StuTeaPot is
-          a project I'm working on for the class "Supervised research project".
+          in the CPES 3 program focused on Data, Arts and Culture. WASPP is a
+          project I'm working on for the class "Supervised research project".
         </p>
       </div>
     </div>

@@ -404,7 +404,7 @@ function validateRemarksAdmin() {
   const textarea = document.querySelector('textarea[name="remarks-admin"]');
   const errorElement = document.getElementById("remarks-admin-error");
   if (!textarea || !errorElement) return true;
-  const isValid = textarea.value.length <= 600;
+  const isValid = textarea.value.length <= 1000;
   errorElement.style.display = isValid ? "none" : "block";
   return isValid;
 }
@@ -413,7 +413,7 @@ function validateStudyTips() {
   const textarea = document.querySelector('textarea[name="study-tips"]');
   const errorElement = document.getElementById("study-tips-error");
   if (!textarea || !errorElement) return true;
-  const isValid = textarea.value.length <= 600;
+  const isValid = textarea.value.length <= 1000;
   errorElement.style.display = isValid ? "none" : "block";
   return isValid;
 }
@@ -450,8 +450,8 @@ function updateRemarksAdminCount() {
   const charCount = document.getElementById("remarks-admin-char-count");
   if (!textarea || !charCount) return;
   const currentLength = textarea.value.length;
-  charCount.textContent = `${currentLength}/600 characters`;
-  if (currentLength > 600) charCount.style.color = "#ff6b6b";
+  charCount.textContent = `${currentLength}/1000 characters`;
+  if (currentLength > 1000) charCount.style.color = "#ff6b6b";
   else charCount.style.color = "#5c564f";
 }
 
@@ -460,7 +460,7 @@ function updateStudyTipsCount() {
   const charCount = document.getElementById("study-tips-char-count");
   if (!textarea || !charCount) return;
   const currentLength = textarea.value.length;
-  charCount.textContent = `${currentLength}/600 characters`;
-  if (currentLength > 600) charCount.style.color = "#ff6b6b";
+  charCount.textContent = `${currentLength}/1000 characters`;
+  if (currentLength > 1000) charCount.style.color = "#ff6b6b";
   else charCount.style.color = "#5c564f";
 }

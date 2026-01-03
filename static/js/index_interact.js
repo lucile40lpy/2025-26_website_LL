@@ -40,7 +40,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const menuItems = [
     {
       text: "Discover",
-      action: () => scrollToSection("discover-stuteapot"),
+      action: () => scrollToSection("discover-WASPP"),
     },
     {
       text: "Start Test",
