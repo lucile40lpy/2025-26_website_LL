@@ -28,8 +28,6 @@ document.addEventListener("DOMContentLoaded", async function () {
   }
 
   // 2. Fetch and Draw Data
-  // Using the global variable injected by app.context_processor
-  // (We check window.flaskUrls just in case, or fallback to config)
   const apiUrl = window.flaskUrls ? window.flaskUrls.sheetApiUrl : null;
 
   if (apiUrl) {
@@ -91,22 +89,15 @@ function generateAllCharts(data) {
 function createBarChart(container, data, key, title) {
   // 1. Process Data
   const counts = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 };
-
   data.forEach((row) => {
-    const val = row[key];
-    // Convert numbers to strings safely (e.g. 1 -> "1")
-    const strVal = String(val);
-    if (counts[strVal] !== undefined) {
-      counts[strVal]++;
-    }
+    const strVal = String(row[key]);
+    if (counts[strVal] !== undefined) counts[strVal]++;
   });
-
   const plotData = Object.keys(counts).map((k) => ({
     score: k,
     count: counts[k],
   }));
 
-  // Label Mapping
   const labelMap = {
     1: "Strongly Disagree",
     2: "Disagree",
@@ -115,45 +106,51 @@ function createBarChart(container, data, key, title) {
     5: "Strongly Agree",
   };
 
-  // 2. Setup Dimensions
-  // Increased bottom margin to fit rotated text
-  const margin = { top: 30, right: 20, bottom: 80, left: 40 };
-  const width = 400 - margin.left - margin.right;
-  const height = 300 - margin.top - margin.bottom;
+  // 2. MINI DIMENSIONS
+  // We make the chart physically smaller to fit the 3-column grid
+  const margin = { top: 20, right: 10, bottom: 70, left: 30 };
+  const width = 220 - margin.left - margin.right; // Much smaller width
+  const height = 200 - margin.top - margin.bottom; // Much smaller height
 
-  // 3. Append Wrapper (Grid Item)
+  // 3. Append Wrapper
   const chartDiv = container.append("div").attr("class", "chart-wrapper");
 
   // Title
   chartDiv
     .append("h3")
     .text(title)
-    .style("font-size", "1rem")
+    .style("font-size", "0.8rem") // Small text
     .style("text-align", "center")
-    .style("margin-bottom", "15px")
-    .style("min-height", "40px"); // Aligns titles in grid
+    .style("margin-bottom", "5px")
+    .style("min-height", "30px");
 
+  // 4. SVG with viewBox (Responsive)
   const svg = chartDiv
     .append("svg")
-    .attr("width", width + margin.left + margin.right)
-    .attr("height", height + margin.top + margin.bottom)
+    .attr(
+      "viewBox",
+      `0 0 ${width + margin.left + margin.right} ${
+        height + margin.top + margin.bottom
+      }`
+    )
+    .style("width", "100%")
+    .style("height", "auto")
     .append("g")
     .attr("transform", `translate(${margin.left},${margin.top})`);
 
-  // 4. Scales
+  // 5. Scales
   const x = d3
     .scaleBand()
     .domain(["1", "2", "3", "4", "5"])
     .range([0, width])
-    .padding(0.3);
+    .padding(0.2);
 
   const y = d3
     .scaleLinear()
     .domain([0, d3.max(plotData, (d) => d.count) || 5])
     .range([height, 0]);
 
-  // 5. Axes
-  // X Axis with Text Formatting and Rotation
+  // 6. Axes
   svg
     .append("g")
     .attr("transform", `translate(0,${height})`)
@@ -162,12 +159,15 @@ function createBarChart(container, data, key, title) {
     .style("text-anchor", "end")
     .attr("dx", "-.8em")
     .attr("dy", ".15em")
-    .attr("transform", "rotate(-25)"); // Rotate text to fit
+    .attr("transform", "rotate(-45)")
+    .style("font-size", "9px"); // Tiny font for labels
 
-  // Y Axis
-  svg.append("g").call(d3.axisLeft(y).ticks(5).tickFormat(d3.format("d"))); // Integers only
+  svg
+    .append("g")
+    .call(d3.axisLeft(y).ticks(4).tickFormat(d3.format("d")))
+    .style("font-size", "9px");
 
-  // 6. Bars
+  // 7. Bars
   svg
     .selectAll(".bar")
     .data(plotData)

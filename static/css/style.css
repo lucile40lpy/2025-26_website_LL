@@ -449,20 +449,38 @@ a.menu-item {
   box-sizing: border-box;
 }
 
+/* Ensure SVG fits in the card */
+.chart-wrapper svg {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Add to style.css */
+
+#charts-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* Force 3 columns */
+  gap: 15px; /* Small gap to save space */
+  width: 100%;
+  box-sizing: border-box;
+}
+
 .chart-wrapper {
-  background-color: #ffffff;
-  padding: 20px;
+  background-color: var(--primary-light);
+  padding: 10px; /* Reduced padding */
   border-radius: var(--border-radius);
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
   display: flex;
   flex-direction: column;
   align-items: center;
+  overflow: hidden;
 }
 
-/* Ensure SVG fits in the card */
-.chart-wrapper svg {
-  max-width: 100%;
-  height: auto;
+/* Responsiveness: Go to 1 column on mobile */
+@media (max-width: 800px) {
+  #charts-container {
+    grid-template-columns: 1fr;
+  }
 }
 
 /*=========================================
