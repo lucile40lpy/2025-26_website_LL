@@ -82,6 +82,12 @@ body {
   font-family: "Inter", sans-serif;
 }
 
+a.menu-item {
+  display: block;
+  text-decoration: none;
+  color: var(--text-dark);
+}
+
 /* Responsive adjustments for mobile */
 @media (max-width: 768px) {
   .site-header {

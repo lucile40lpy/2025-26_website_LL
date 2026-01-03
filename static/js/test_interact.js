@@ -9,6 +9,7 @@ function getSheetApiUrl() {
   if (window.flaskUrls && window.flaskUrls.sheetApiUrl) {
     return window.flaskUrls.sheetApiUrl;
   }
+  console.log(window.flaskUrls.sheetApiUrl);
   console.error("SHEET_API_URL not found in configuration!");
   return "";
 }
@@ -22,10 +23,40 @@ document.addEventListener("DOMContentLoaded", function () {
   const form = document.getElementById("test-form");
   if (form) form.reset();
 
-  // UI Setup
-  if (typeof createDropdownMenu === "function") createDropdownMenu();
-  if (typeof setupEmailCopy === "function") setupEmailCopy();
+  // --- NEW MENU LOGIC START ---
+  const dropdownTrigger = document.getElementById("dropdown-trigger");
+  const dropdownMenu = document.getElementById("dropdown-menu");
+  const dropdownIcon = document.querySelector(".dropdown-icon");
 
+  if (dropdownTrigger && dropdownMenu) {
+    // Toggle menu on click
+    dropdownTrigger.addEventListener("click", function (e) {
+      e.stopPropagation();
+      dropdownMenu.classList.toggle("hidden");
+
+      // Rotate icon
+      if (dropdownIcon) {
+        dropdownIcon.style.transform = dropdownMenu.classList.contains("hidden")
+          ? "rotate(0deg)"
+          : "rotate(180deg)";
+      }
+    });
+
+    // Close menu when clicking outside
+    document.addEventListener("click", function () {
+      dropdownMenu.classList.add("hidden");
+      if (dropdownIcon) dropdownIcon.style.transform = "rotate(0deg)";
+    });
+
+    // Prevent closing when clicking inside menu
+    dropdownMenu.addEventListener("click", function (e) {
+      e.stopPropagation();
+    });
+  }
+  // --- MENU LOGIC END ---
+
+  // Keep your existing initializers
+  if (typeof setupEmailCopy === "function") setupEmailCopy();
   initializeCharacterCount();
 
   // Interaction Setup

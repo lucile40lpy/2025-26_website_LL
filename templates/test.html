@@ -23,6 +23,25 @@
   </head>
 
   <body>
+    <header class="site-header">
+      <div class="header-branding">
+        <h1 class="main-title">WASPP</h1>
+        <p class="subtitle">What Are Student's Pedagogical Preferences?</p>
+      </div>
+
+      <div id="dropdown-container">
+        <div id="dropdown-trigger">
+          <span id="menu-label">MENU</span>
+          <span class="dropdown-icon">▼</span>
+        </div>
+
+        <div id="dropdown-menu" class="hidden">
+          <a href="{{ url_for('home') }}" class="menu-item">Home</a>
+          <a href="{{ url_for('results') }}" class="menu-item">Results</a>
+        </div>
+      </div>
+    </header>
+
     <form method="POST" id="test-form">
       <div class="full-width-section bg-cream">
         <div class="section-content">
