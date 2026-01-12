@@ -99,8 +99,31 @@ body {
 
 .header-branding {
   display: flex;
-  align-items: baseline; /* Aligns text on the baseline */
-  gap: 20px; /* Space between WASPP and Subtitle */
+  align-items: center; /* Vertically centers the icon with the text block */
+  gap: 15px; /* Space between the wasp icon and the text */
+}
+
+.header-icon {
+  height: 40px; /* Adjust size as needed */
+  width: auto; /* Maintains aspect ratio */
+}
+
+/* Helper to stack Title and Subtitle vertically next to the icon */
+.header-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* Ensure title doesn't have huge margins pushing it away */
+.header-text h1 {
+  line-height: 1;
+  margin-bottom: 2px;
+}
+
+.header-text .subtitle {
+  font-size: 0.85rem; /* Slightly smaller to look neat under the title */
+  color: var(--text-light);
 }
 
 .header-branding h1 {
