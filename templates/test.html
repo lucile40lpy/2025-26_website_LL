@@ -17,6 +17,7 @@
       rel="stylesheet"
       href="{{ url_for('static', filename='css/style.css') }}"
     />
+    <script src="{{ url_for('static', filename='js/translations.js') }}"></script>
     <script>
       window.flaskUrls = {
         home: "{{ url_for('home') }}",
@@ -38,12 +39,26 @@
         />
         <div class="header-text">
           <h1 class="main-title">WASPP</h1>
-          <p class="subtitle">What Are Student's Pedagogical Preferences?</p>
+          <p class="subtitle" data-i18n="subtitle">
+            What Are Student's Pedagogical Preferences?
+          </p>
         </div>
       </div>
 
       <div class="header-actions">
-        <a href="{{ url_for('take_test') }}" class="header-cta">Start Test</a>
+        <div class="lang-switch">
+          <button
+            type="button"
+            onclick="setLanguage('en')"
+            class="lang-btn active"
+          >
+            EN
+          </button>
+          <span>|</span>
+          <button type="button" onclick="setLanguage('fr')" class="lang-btn">
+            FR
+          </button>
+        </div>
 
         <div id="dropdown-container">
           <div id="dropdown-trigger">
@@ -99,9 +114,9 @@
     <form method="POST" id="test-form">
       <div class="full-width-section bg-purple">
         <div class="section-content">
-          <h2>WASPP Questionnaire</h2>
+          <h2 data-i18n="intro_title">WASPP Questionnaire</h2>
           <div class="intro-block">
-            <p>
+            <p data-i18n="intro_p1">
               This questionnaire is driven by curiosity about the profiles of
               CPESSMD students, and their pedagogical preferences. Questions
               cover a wide range of experiences as a student, including your
@@ -116,24 +131,24 @@
                 margin-bottom: 20px;
               "
             >
-              <li>
+              <li data-i18n="intro_anon">
                 The questionnaire <strong>anonymous</strong>. All answers are
                 completely confidential.
               </li>
-              <li>
+              <li data-i18n="intro_optional">
                 All questions are <strong>optional</strong>. Nothing is
                 mandatory; you can skip what you prefer not to answer.
               </li>
             </ul>
           </div>
-          <p class="intro-text">
+          <p class="intro-text" data-i18n="intro_advice">
             Please answer with what you think is true, not what you think you
             should answer.
           </p>
 
           <div class="question" id="anon_ID">
-            <h3>Personal anonymous ID</h3>
-            <p>
+            <h3 data-i18n="anon_id_title">Personal anonymous ID</h3>
+            <p data-i18n="anon_id_desc">
               If you have been given an anonymous ID, please enter it below. If
               not, leave this field empty.
             </p>
@@ -142,6 +157,7 @@
                 <input
                   type="text"
                   name="anonymous-id"
+                  data-i18n-placeholder="ph_id"
                   placeholder="Enter your anonymous ID"
                 />
               </label>
@@ -152,10 +168,10 @@
 
       <div class="full-width-section bg-green">
         <div class="section-content">
-          <h2>Demographic profile</h2>
+          <h2 data-i18n="demo_title">Demographic profile</h2>
 
           <div class="question" id="gender">
-            <h3>Gender</h3>
+            <h3 data-i18n="gender_title">Gender</h3>
             <div class="options">
               <label class="option">
                 <select name="gender">
@@ -171,7 +187,7 @@
           </div>
 
           <div class="question" id="age">
-            <h3>Age</h3>
+            <h3 data-i18n="age_title">Age</h3>
             <div class="options">
               <label class="option">
                 <input
@@ -179,6 +195,7 @@
                   name="age"
                   min="1"
                   max="120"
+                  data-i18n-placeholder="ph_age"
                   placeholder="Enter your age"
                 />
               </label>
@@ -187,7 +204,7 @@
           </div>
 
           <div class="question" id="economic-situation">
-            <h3>Socio-economic situation</h3>
+            <h3 data-i18n="eco_title">Socio-economic situation</h3>
             <div class="options">
               <label class="option">
                 <select name="economic-situation">
@@ -204,7 +221,7 @@
           </div>
 
           <div class="question" id="scholarship">
-            <h3>Scholarship</h3>
+            <h3 data-i18n="scholarship_title">Scholarship</h3>
             <div class="options">
               <label class="option">
                 <select name="scholarship">
@@ -227,7 +244,7 @@
           </div>
 
           <div class="question" id="housing-situation">
-            <h3>Housing situation</h3>
+            <h3 data-i18n="housing_title">Housing situation</h3>
             <div class="options">
               <label class="option">
                 <select name="housing-situation">
@@ -249,10 +266,10 @@
 
       <div class="full-width-section bg-cream">
         <div class="section-content">
-          <h2>Academic profile</h2>
+          <h2 data-i18n="acad_title">Academic profile</h2>
 
           <div class="question" id="class-year">
-            <h3>In what year are you?</h3>
+            <h3 data-i18n="year_title">In which year are you?</h3>
             <div class="options">
               <label class="option">
                 <select name="class-year">
@@ -269,7 +286,7 @@
           </div>
 
           <div class="question" id="study-field">
-            <h3>In what class are you?</h3>
+            <h3 data-i18n="class_title">In which class are you?</h3>
             <div class="options">
               <label class="option">
                 <select name="study-field">
@@ -289,8 +306,10 @@
           </div>
 
           <div class="question" id="grades">
-            <h3>What was your grade average last year?</h3>
-            <p class="intro-text">
+            <h3 data-i18n="grade_title">
+              What was your grade average last year?
+            </h3>
+            <p class="intro-text" data-i18n="grade_desc">
               If you are not sure, write an approximation.
             </p>
             <div class="options">
@@ -309,20 +328,30 @@
             </p>
           </div>
 
-          <h3>How much do you agree with the following statements?</h3>
+          <h3 data-i18n="likert_intro">
+            How much do you agree with the following statements?
+          </h3>
 
           <div class="likert-matrix">
             <div class="likert-header">
               <div class="likert-header-empty"></div>
-              <div class="likert-header-label">Strongly<br />Disagree</div>
-              <div class="likert-header-label">Disagree</div>
-              <div class="likert-header-label">Neutral</div>
-              <div class="likert-header-label">Agree</div>
-              <div class="likert-header-label">Strongly<br />Agree</div>
+              <div class="likert-header-label" data-i18n="likert_s">
+                Strongly<br />Disagree
+              </div>
+              <div class="likert-header-label" data-i18n="likert_sd">
+                Disagree
+              </div>
+              <div class="likert-header-label" data-i18n="likert_n">
+                Neutral
+              </div>
+              <div class="likert-header-label" data-i18n="likert_a">Agree</div>
+              <div class="likert-header-label" data-i18n="likert_sa">
+                Strongly<br />Agree
+              </div>
             </div>
 
             <div class="likert-row">
-              <div class="likert-statement">
+              <div class="likert-statement" data-i18n="q_confidence">
                 I feel confident in my ability to understand course material.
                 <p id="self-confidence-error" class="matrix-error">Missing</p>
               </div>
@@ -344,7 +373,7 @@
             </div>
 
             <div class="likert-row">
-              <div class="likert-statement">
+              <div class="likert-statement" data-i18n="q_stress">
                 I frequently experience stress or anxiety related to my academic
                 workload.
                 <p id="stress-error" class="matrix-error">Missing</p>
@@ -367,7 +396,7 @@
             </div>
 
             <div class="likert-row">
-              <div class="likert-statement">
+              <div class="likert-statement" data-i18n="q_absence">
                 I often miss classes.
                 <p id="absence-error" class="matrix-error">Missing</p>
               </div>
@@ -389,7 +418,7 @@
             </div>
 
             <div class="likert-row">
-              <div class="likert-statement">
+              <div class="likert-statement" data-i18n="q_lateness">
                 I am often late to classes.
                 <p id="lateness-error" class="matrix-error">Missing</p>
               </div>
@@ -411,7 +440,7 @@
             </div>
 
             <div class="likert-row">
-              <div class="likert-statement">
+              <div class="likert-statement" data-i18n="q_wellbeing">
                 I feel satisfied and positive about my overall academic
                 experience.
                 <p id="well-being-error" class="matrix-error">Missing</p>
@@ -434,7 +463,7 @@
             </div>
 
             <div class="likert-row">
-              <div class="likert-statement">
+              <div class="likert-statement" data-i18n="q_knowledge">
                 The knowledge I acquire feels lasting and useful beyond exams.
                 <p id="knowledge-durability-error" class="matrix-error">
                   Missing
@@ -458,7 +487,7 @@
             </div>
 
             <div class="likert-row">
-              <div class="likert-statement">
+              <div class="likert-statement" data-i18n="q_cheating">
                 I have used or considered using unauthorized help.
                 <p id="cheating-error" class="matrix-error">Missing</p>
               </div>
@@ -480,7 +509,7 @@
             </div>
 
             <div class="likert-row">
-              <div class="likert-statement">
+              <div class="likert-statement" data-i18n="q_interest">
                 I am generally interested in the program I'm in and the courses
                 offered.
                 <p id="interest-error" class="matrix-error">Missing</p>
@@ -503,7 +532,7 @@
             </div>
 
             <div class="likert-row">
-              <div class="likert-statement">
+              <div class="likert-statement" data-i18n="q_performance">
                 Getting good grades is important to me.
                 <p id="performance-error" class="matrix-error">Missing</p>
               </div>
@@ -525,7 +554,7 @@
             </div>
 
             <div class="likert-row">
-              <div class="likert-statement">
+              <div class="likert-statement" data-i18n="q_workload">
                 I feel that my ability to produce quality work is hindered by my
                 workload.
                 <p id="workload-error" class="matrix-error">Missing</p>
@@ -552,8 +581,8 @@
 
       <div class="full-width-section bg-purple">
         <div class="section-content">
-          <h2>Personal Motivations</h2>
-          <h3>
+          <h2 data-i18n="motiv_title">Personal Motivations</h2>
+          <h3 data-i18n="motiv_intro">
             In your overall life as a student, how much do you agree with the
             following statements?
           </h3>
@@ -561,15 +590,23 @@
           <div class="likert-matrix">
             <div class="likert-header">
               <div class="likert-header-empty"></div>
-              <div class="likert-header-label">Strongly<br />Disagree</div>
-              <div class="likert-header-label">Disagree</div>
-              <div class="likert-header-label">Neutral</div>
-              <div class="likert-header-label">Agree</div>
-              <div class="likert-header-label">Strongly<br />Agree</div>
+              <div class="likert-header-label" data-i18n="likert_s">
+                Strongly<br />Disagree
+              </div>
+              <div class="likert-header-label" data-i18n="likert_sd">
+                Disagree
+              </div>
+              <div class="likert-header-label" data-i18n="likert_n">
+                Neutral
+              </div>
+              <div class="likert-header-label" data-i18n="likert_a">Agree</div>
+              <div class="likert-header-label" data-i18n="likert_sa">
+                Strongly<br />Agree
+              </div>
             </div>
 
             <div class="likert-row">
-              <div class="likert-statement">
+              <div class="likert-statement" data-i18n="q_curiosity">
                 I like to discover new or original information.
                 <p id="curiosity-error" class="matrix-error">Missing</p>
               </div>
@@ -591,7 +628,7 @@
             </div>
 
             <div class="likert-row">
-              <div class="likert-statement">
+              <div class="likert-statement" data-i18n="q_explanation">
                 I like to look for explanations for what is happening around me.
                 <p id="explanation-seeking-error" class="matrix-error">
                   Missing
@@ -615,7 +652,7 @@
             </div>
 
             <div class="likert-row">
-              <div class="likert-statement">
+              <div class="likert-statement" data-i18n="q_skills">
                 I like to develop skills in various fields.
                 <p id="skill-acquisition-error" class="matrix-error">Missing</p>
               </div>
@@ -637,7 +674,7 @@
             </div>
 
             <div class="likert-row">
-              <div class="likert-statement">
+              <div class="likert-statement" data-i18n="q_play">
                 I like trying new ways of acting in situations with no pressure.
                 <p id="play-error" class="matrix-error">Missing</p>
               </div>
@@ -659,7 +696,7 @@
             </div>
 
             <div class="likert-row">
-              <div class="likert-statement">
+              <div class="likert-statement" data-i18n="q_time_travel">
                 I like to think about the best action plans to implement.
                 <p id="mental-time-travel-error" class="matrix-error">
                   Missing
@@ -683,7 +720,7 @@
             </div>
 
             <div class="likert-row">
-              <div class="likert-statement">
+              <div class="likert-statement" data-i18n="q_pride">
                 I like tackling challenges that require a high level of skill.
                 <p id="pride-error" class="matrix-error">Missing</p>
               </div>
@@ -705,7 +742,7 @@
             </div>
 
             <div class="likert-row">
-              <div class="likert-statement">
+              <div class="likert-statement" data-i18n="q_shame">
                 I like being in situations where I don't risk being devalued.
                 <p id="shame-error" class="matrix-error">Missing</p>
               </div>
@@ -727,7 +764,7 @@
             </div>
 
             <div class="likert-row">
-              <div class="likert-statement">
+              <div class="likert-statement" data-i18n="q_affiliation">
                 I like to surround myself with people I admire.
                 <p id="affiliation-error" class="matrix-error">Missing</p>
               </div>
@@ -749,7 +786,7 @@
             </div>
 
             <div class="likert-row">
-              <div class="likert-statement">
+              <div class="likert-statement" data-i18n="q_friendship">
                 I enjoy spending time nurturing the friendships that matter to
                 me.
                 <p id="friendship-error" class="matrix-error">Missing</p>
@@ -772,7 +809,7 @@
             </div>
 
             <div class="likert-row">
-              <div class="likert-statement">
+              <div class="likert-statement" data-i18n="q_reasoning">
                 I like exchanging arguments to defend my ideas or evaluate those
                 of others.
                 <p id="reasoning-error" class="matrix-error">Missing</p>
@@ -795,7 +832,10 @@
             </div>
 
             <div class="likert-row">
-              <div class="likert-statement">
+              <div
+                class="likert-statement"
+                data-i18n="q_coalitional-affiliation"
+              >
                 I like being a member of a group with a strong identity.
                 <p id="coalitional-affiliation-error" class="matrix-error">
                   Missing
@@ -819,7 +859,7 @@
             </div>
 
             <div class="likert-row">
-              <div class="likert-statement">
+              <div class="likert-statement" data-i18n="q_status">
                 I like to take on responsibilities in the groups I belong to.
                 <p id="status-seeking-error" class="matrix-error">Missing</p>
               </div>
@@ -845,21 +885,31 @@
 
       <div class="full-width-section bg-green">
         <div class="section-content">
-          <h2>Pedagogical Preferences</h2>
-          <h3>How much do you agree with the following statements?</h3>
+          <h2 data-i18n="pedago_title">Pedagogical Preferences</h2>
+          <h3 data-i18n="likert-intro">
+            How much do you agree with the following statements?
+          </h3>
 
           <div class="likert-matrix">
             <div class="likert-header">
               <div class="likert-header-empty"></div>
-              <div class="likert-header-label">Strongly<br />Disagree</div>
-              <div class="likert-header-label">Disagree</div>
-              <div class="likert-header-label">Neutral</div>
-              <div class="likert-header-label">Agree</div>
-              <div class="likert-header-label">Strongly<br />Agree</div>
+              <div class="likert-header-label" data-i18n="likert_s">
+                Strongly<br />Disagree
+              </div>
+              <div class="likert-header-label" data-i18n="likert_sd">
+                Disagree
+              </div>
+              <div class="likert-header-label" data-i18n="likert_n">
+                Neutral
+              </div>
+              <div class="likert-header-label" data-i18n="likert_a">Agree</div>
+              <div class="likert-header-label" data-i18n="likert_sa">
+                Strongly<br />Agree
+              </div>
             </div>
 
             <div class="likert-row">
-              <div class="likert-statement">
+              <div class="likert-statement" data-i18n="q_instructions">
                 It's important for me that the teacher provides clear
                 instructions before evaluating.
                 <p id="clear-instructions-error" class="matrix-error">
@@ -884,7 +934,7 @@
             </div>
 
             <div class="likert-row">
-              <div class="likert-statement">
+              <div class="likert-statement" data-i18n="q_grading">
                 It's important for me that the teacher provides a grading scale.
                 <p id="grading-scale-error" class="matrix-error">Missing</p>
               </div>
@@ -906,7 +956,7 @@
             </div>
 
             <div class="likert-row">
-              <div class="likert-statement">
+              <div class="likert-statement" data-i18n="q_eval_content">
                 It's important for me to be evaluated purely on the course
                 content.
                 <p id="eval-content-error" class="matrix-error">Missing</p>
@@ -929,7 +979,7 @@
             </div>
 
             <div class="likert-row">
-              <div class="likert-statement">
+              <div class="likert-statement" data-i18n="q_resources">
                 It's important for me to be given additional resources to able
                 to dig further.
                 <p id="resources-error" class="matrix-error">Missing</p>
@@ -952,7 +1002,7 @@
             </div>
 
             <div class="likert-row">
-              <div class="likert-statement">
+              <div class="likert-statement" data-i18n="q_practice">
                 It's important for me that the course requires practicing what
                 was taught.
                 <p id="practice-error" class="matrix-error">Missing</p>
@@ -975,7 +1025,7 @@
             </div>
 
             <div class="likert-row">
-              <div class="likert-statement">
+              <div class="likert-statement" data-i18n="q_time_limit">
                 It's important for me to produce assignments in limited time.
                 <p id="limit-time-error" class="matrix-error">Missing</p>
               </div>
@@ -997,7 +1047,7 @@
             </div>
 
             <div class="likert-row">
-              <div class="likert-statement">
+              <div class="likert-statement" data-i18n="q_feedback">
                 It's important for me that the teacher provides personal
                 feedback and annotations on my work.
                 <p id="feedback-error" class="matrix-error">Missing</p>
@@ -1020,7 +1070,7 @@
             </div>
 
             <div class="likert-row">
-              <div class="likert-statement">
+              <div class="likert-statement" data-i18n="q_post_expl">
                 It's important for me that additional explanations for the class
                 are provided after an assignment.
                 <p id="explanation-error" class="matrix-error">Missing</p>
@@ -1043,7 +1093,7 @@
             </div>
 
             <div class="likert-row">
-              <div class="likert-statement">
+              <div class="likert-statement" data-i18n="q_correction">
                 It's important for me that I'm asked to correct my mistakes
                 after an evaluation.
                 <p id="correction-error" class="matrix-error">Missing</p>
@@ -1066,7 +1116,7 @@
             </div>
 
             <div class="likert-row">
-              <div class="likert-statement">
+              <div class="likert-statement" data-i18n="q_interaction">
                 It's important for me to interact with other students when I'm
                 working.
                 <p id="interaction-error" class="matrix-error">Missing</p>
@@ -1089,7 +1139,7 @@
             </div>
 
             <div class="likert-row">
-              <div class="likert-statement">
+              <div class="likert-statement" data-i18n="q_group_work">
                 It's important for me to work in groups.
                 <p id="group-work-error" class="matrix-error">Missing</p>
               </div>
@@ -1115,13 +1165,13 @@
 
       <div class="full-width-section bg-cream">
         <div class="section-content">
-          <h2>Your Input</h2>
+          <h2 data-i18n="input_title">Your Input</h2>
           <div class="question" id="study-tips">
-            <h3>
+            <h3 data-i18n="tips_title">
               Please write down your favorite study methods, tips or
               encouragement words you would like to share with other students.
             </h3>
-            <p class="intro-text">
+            <p class="intro-text" data-i18n="tips_desc">
               The text you write might be shared with other students that have a
               similar profile to your own in the following result section. Even
               if you think your way of doing things only works for you, don't
@@ -1131,6 +1181,7 @@
               <label class="option">
                 <textarea
                   name="study-tips"
+                  data-i18n-placeholder="ph_tips"
                   placeholder="Share your study tips and methods here..."
                   maxlength="1000"
                   rows="4"
@@ -1153,11 +1204,14 @@
           </div>
 
           <div class="question" id="remarks-admin">
-            <h3>Do you have any remark for the questionnaire administrator?</h3>
+            <h3 data-i18n="remarks_title">
+              Do you have any remark for the questionnaire administrator?
+            </h3>
             <div class="options">
               <label class="option">
                 <textarea
                   name="remarks-admin"
+                  data-i18n-placeholder="ph_remarks"
                   placeholder="Enter your remarks here..."
                   maxlength="1000"
                   rows="4"
@@ -1180,8 +1234,10 @@
           </div>
 
           <div class="test-navigation">
-            <button type="submit" class="nav-button">Submit Answers</button>
-            <p>
+            <button type="submit" class="nav-button" data-i18n="submit_btn">
+              Submit Answers
+            </button>
+            <p data-i18n="wait_msg">
               The process of submitting and collecting data can be slow. Please
               do not refresh this page while you wait!
             </p>
