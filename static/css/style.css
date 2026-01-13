@@ -248,8 +248,9 @@ a.menu-item {
 }
 
 /* =========================================
-   MENU (Updated for Header Placement)
+   MENU
    ========================================= */
+
 #dropdown-container {
   position: relative; /* Now flows inside the header */
   z-index: 1000;
@@ -300,15 +301,46 @@ a.menu-item {
   pointer-events: none;
 }
 
+/* Menu Item (Main Links) - Reduced padding */
 .menu-item {
-  padding: 12px 20px;
+  padding: 10px 20px; /* Reduced from 12px */
   cursor: pointer;
   transition: background-color 0.2s;
   font-size: 0.95rem;
+  display: block;
+  text-decoration: none;
+  color: var(--text-dark);
 }
-.menu-item:hover {
+
+/* Sub-items - Tighter spacing */
+.menu-sub-item {
+  padding: 5px 20px 5px 40px; /* Reduced vertical padding (top/bottom) to 5px */
+  font-size: 0.85rem; /* Slightly smaller text */
+  color: var(--text-light);
+  cursor: pointer;
+  display: block;
+  text-decoration: none;
+  transition: background-color 0.2s;
+  line-height: 1.4; /* Ensures text lines don't feel too spaced out */
+}
+
+/* Hover effects */
+.menu-item:hover,
+.menu-sub-item:hover {
   background-color: var(--primary-light);
   color: var(--primary-dark);
+}
+
+/* Optional: Add a tiny separation between main categories */
+.menu-category {
+  font-weight: 600;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.03); /* Faint separator line */
+  margin-top: 5px; /* Tiny space before a new category starts */
+}
+
+/* Remove margin from the first item so it aligns perfectly */
+.menu-category:first-child {
+  margin-top: 0;
 }
 
 /* =========================================
